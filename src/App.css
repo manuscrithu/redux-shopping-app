@@ -1,0 +1,19 @@
+.app-container {
+    padding: 2rem;
+    background: #fef7ef;
+    min-height: 100vh;
+  }
+  
+  .cart-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+  }
+  
+  .add-to-cart-btn {
+    background-color: #1677ff;
+    border-radius: 20px;
+    padding: 0 1rem;
+    font-size: 16px;
+  }
+  
