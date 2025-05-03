@@ -1,39 +1,18 @@
-import { Row, Col, Button } from "antd";
-import { ShoppingCartOutlined } from '@ant-design/icons';
-import ProductCard from "./components/ProductCard/ProductCard";
-import { data } from "./assets/core/data";
+import { Routes, Route } from "react-router-dom";
+import MainLayout from "./layouts/MainLayout";
+import Home from "./pages/Home";
+import Cart from "./pages/Cart";
 import './App.css';
 import 'antd/dist/reset.css';
 
 function App() {
   return (
-    <div className="app-container">
-      <div className="cart-button-container">
-        <Button
-          className="add-to-cart-btn"
-          type="primary"
-          shape="round"
-          icon={<ShoppingCartOutlined />}
-        >
-          View Cart
-        </Button>
-      </div>
-
-      <Row gutter={[16, 24]} justify="space-between">
-        {data.map((item: any) => (
-          <Col
-            key={item.id}
-            xs={24}
-            sm={12}
-            md={12}
-            lg={8}
-            xl={6}
-          >
-            <ProductCard product={item} />
-          </Col>
-        ))}
-      </Row>
-    </div>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<Home />} />
+        <Route path="cart" element={<Cart />} />
+      </Route>
+    </Routes>
   );
 }
 

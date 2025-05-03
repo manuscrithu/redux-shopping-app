@@ -1,42 +1,41 @@
 import './ProductCard.scss'
-import { useDispatch } from 'react-redux'
-import { addToCart, removeFromCart } from '../Cart/cartSlice'
-import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCart, removeFromCart } from '../../store/cartSlice'
+import { RootState } from '../../store'
+import { Product, CartItem } from '../../types'
 
 interface ProductCardProps {
-  product: {
-    id: number,
-    title: string,
-    img: any,
-    description: string,
-    price?: number
-  }
+    product: Product;
 }
 
 function ProductCard({ product }: ProductCardProps) {
-    const [itemCount, setItemCount] = useState<number>(0)
     const dispatch = useDispatch()
+    const cartItem = useSelector((state: RootState) => 
+        state.cart.cartItems.find((item: CartItem) => item.id === product.id)
+    )
 
     function handleAddToCart() {
         dispatch(addToCart(product))
-        setItemCount(() => itemCount + 1)
     }
 
     function handleRemoveItem() {
         dispatch(removeFromCart(product))
-        setItemCount(() => itemCount - 1)
     }
 
     return (
         <div className="card-container">
             <div className="card-title">{product.title}</div>
-            <div className="card-img"><img src={product.img} /></div>
+            <div className="card-img"><img src={product.img} alt={product.title} /></div>
             <div className="card-desc">{product.description}</div>
-            <h3>${product.price}</h3>
+            <h3>${product.price.toFixed(2)}</h3>
             <div className="card-footer">
                 <button onClick={handleAddToCart}>Add to cart</button>
-                <p>{itemCount} {itemCount==1?'item':'items'} in the cart</p>
-                {itemCount>0? <button onClick={handleRemoveItem}>Remove</button> : undefined}
+                {cartItem && (
+                    <>
+                        <p>{cartItem.quantity} {cartItem.quantity === 1 ? 'item' : 'items'} in the cart</p>
+                        <button onClick={handleRemoveItem}>Remove</button>
+                    </>
+                )}
             </div>
         </div>
     )

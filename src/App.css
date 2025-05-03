@@ -8,6 +8,10 @@
     display: flex;
     justify-content: flex-end;
     margin-bottom: 1.5rem;
+    position: sticky;
+    top: 40px;
+    right: 50px;
+    z-index: 10;
   }
   
   .add-to-cart-btn {
